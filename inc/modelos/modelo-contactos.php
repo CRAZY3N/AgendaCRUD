@@ -1,6 +1,5 @@
-<!-- Archivo para crear o insertar nuevo elemento a la tabla -->
-
 <?php
+    /* Archivo para crear o insertar nuevo elemento a la tabla */
 
     if($_POST['accion'] == 'crear' ){
         //Se creara un nuevo registro en la base de datos

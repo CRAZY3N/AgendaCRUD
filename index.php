@@ -1,3 +1,6 @@
+<!-- Funciones -->
+<?php include 'inc/funciones/funciones.php'; ?>
+
 <!-- Header -->
 <?php include 'inc/layout/header.php'; ?>
 
@@ -48,6 +51,27 @@
                         <button data-id="1" class="btn btn-borrar" type="button"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr> -->
+                <?php $contactos = obtenerRegistros(); 
+                      /* var_dump($contactos); */ //Verificar si la consulta se ha ejecutado correctamente 
+                    if($contactos -> num_rows) { /* Verifica que tenga elementos la consulta */
+                         foreach($contactos as $contacto) {?>
+                        <pre> <!-- Ver el elemento, y poder saber el nombre de cada campo -->
+                            <?php /* var_dump($contacto); */ ?> 
+                        </pre>
+                        
+                        <tr>
+                            <td><?php echo $contacto["nombre"]; ?></td>
+                            <td><?php echo $contacto["empresa"]; ?></td>
+                            <td><?php echo $contacto["telefono"]; ?></td>
+                            <td>
+                                <a class="btn btn-editar" href="editar.php?id=<?php echo $contacto["id"]; ?>"><i class="fas fa-pen-square"></i></a>
+                                <button data-id="<?php echo $contacto["id"]; ?>" class="btn btn-borrar" type="button"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr    
+
+                <?php   }/* Fin del foreach */
+                     } /* Fin de if */ ?>
+
            </tbody>
         </table>
     </div>

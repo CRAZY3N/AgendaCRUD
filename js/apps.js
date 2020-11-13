@@ -65,7 +65,7 @@ function insertarBD(info){
     //Pasar los datos
     xhr.onload = function(){
         if(this.status === 200){
-            console.log(JSON.parse(xhr.responseText));
+            /* console.log(JSON.parse(xhr.responseText)); */
             //Leemos la respuesta de PHP
             const respuesta = JSON.parse(xhr.responseText);
             //console.log(respuesta);
@@ -107,11 +107,16 @@ function insertarBD(info){
             //Agregarlo a la tabla
             listadoContactos.appendChild(nuevoContacto); //Agregamos todo el contenido a la tabla de la pagina
 
+            //Limpiar campos
+            document.querySelector("#nombre").value = '';
+            document.querySelector("#empresa").value = '';
+            document.querySelector("#telefono").value = '';
+            
             /* Notificación de guardado y agregado */
             mostrarNotificacion('Guardado Exitosamente', 'nCorrecto');
 
             //Resetear campos
-            
+
 
         }
     }
