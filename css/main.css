@@ -296,8 +296,10 @@ body{
     color: #FFFFFF;
 }
 
-.visible{opacity: 0.7;}
+.visible{opacity: 0.8;}
 
 .nError{background: #E42C2C;}
 
 .nCorrecto{background: #33FF7A;}
+
+.nAdvertencia{background: #d8d512;}

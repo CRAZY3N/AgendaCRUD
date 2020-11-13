@@ -1,6 +1,7 @@
 'use strict'
 
-const formularioContactos = document.querySelector("#contacto");
+const formularioContactos = document.querySelector("#contacto"),
+      listadoContactos = document.querySelector('#listadoContactos tbody');
 
 addEventListener();
 
@@ -67,8 +68,51 @@ function insertarBD(info){
             console.log(JSON.parse(xhr.responseText));
             //Leemos la respuesta de PHP
             const respuesta = JSON.parse(xhr.responseText);
-            console.log(respuesta.empresa);
+            //console.log(respuesta);
+            //Insertar nuevo elemento a la tabla
+            const nuevoContacto = document.createElement('tr');
+            nuevoContacto.innerHTML = `
+                <td>${respuesta.datos.nombre}</td>
+                <td>${respuesta.datos.empresa}</td>
+                <td>${respuesta.datos.telefono}</td>
+            `;
+            //Contenedor botones
+            const contenedor = document.createElement('td');
+            
+            //Icono de editar
+            const iconoEditar = document.createElement('i'); //Elemento i
+            iconoEditar.classList.add('fas','fa-pen-square');
+            //Crear enlace para editar
+            const btnEditar = document.createElement('a'); //El elemento a
+            btnEditar.appendChild(iconoEditar); //Agregamos a al elemento i
+            btnEditar.href = `editar.php?id=${respuesta.datos.id_insertado}`;
+            btnEditar.classList.add('btn','btn-editar'); //Agrega clases para el botón
+
+            //Icono de eliminar
+            const iconoBorrar = document.createElement('i');
+            iconoBorrar.classList.add('fas','fa-trash-alt');
+            //Crear enlace para borrar
+            const btnBorrar = document.createElement('button');
+            btnBorrar.appendChild(iconoBorrar);
+            btnBorrar.classList.add('btn','btn-borrar');
+            btnBorrar.setAttribute('data-id', respuesta.datos.id_insertado);
+
+            //Agregar al contenedor los botones
+            contenedor.appendChild(btnEditar); //Agregamos el botón editar al contenedor
+            contenedor.appendChild(btnBorrar); //Agregamos el botón de borrar al contenedor
+
+            //Agregar el contenedor al tr
+            nuevoContacto.appendChild(contenedor); //Agregamos el contenedor (botones) al tr de la tabla
+
+            //Agregarlo a la tabla
+            listadoContactos.appendChild(nuevoContacto); //Agregamos todo el contenido a la tabla de la pagina
+
+            /* Notificación de guardado y agregado */
             mostrarNotificacion('Guardado Exitosamente', 'nCorrecto');
+
+            //Resetear campos
+            
+
         }
     }
     //Enviar datos

@@ -28,7 +28,7 @@
     <p class="tc"><span>1</span> Contactos</p>
 
     <div class="tabla">
-        <table>
+        <table id="listadoContactos">
             <thead>
             <tr>
                 <th>Nombre</th>
@@ -38,7 +38,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+                <!-- Estructura de cada columna -->
+                <!-- <tr>
                     <td>Emm</td>
                     <td>DD Web</td>
                     <td>55 1234 5678</td>
@@ -46,28 +47,8 @@
                         <a class="btn btn-editar" href="editar.php?id=1"><i class="fas fa-pen-square"></i></a>
                         <button data-id="1" class="btn btn-borrar" type="button"><i class="fas fa-trash-alt"></i></button>
                     </td>
-                </tr>
-
-                <tr>
-                    <td>Emm</td>
-                    <td>DD Web</td>
-                    <td>55 1234 5678</td>
-                    <td>
-                        <a class="btn btn-editar" href="editar.php?id=1"><i class="fas fa-pen-square"></i> </a>
-                        <button data-id="1" class="btn btn-borrar" type="button"> <i class="fas fa-trash-alt"></i></button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Emm</td>
-                    <td>DD Web</td>
-                    <td>55 1234 5678</td>
-                    <td>
-                        <a class="btn btn-editar" href="editar.php?id=1"><i class="fas fa-pen-square"></i></a>
-                        <button data-id="1" class="btn btn-borrar" type="button"><i class="fas fa-trash-alt"></i></button>
-                    </td>
-                </tr>
-            </tbody>
+                </tr> -->
+           </tbody>
         </table>
     </div>
     </div>
