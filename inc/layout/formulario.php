@@ -1,21 +1,27 @@
-<?php  ?>
 
 <div class="g g-3 gp">
     <div class="campo">
         <label for="nombre">Nombre:<span>*</span></label>
-        <input type="text" name="nombre" id="nombre" placeholder="Nombre Contacto" value=" <?php echo ($contacto['nombre']) ? $contacto['nombre'] : ''; ?> " require>
+        <input type="text" name="nombre" id="nombre" value="<?php echo (isset($contacto['nombre'])) ? $contacto['nombre'] :''; ?>" placeholder="Nombre Contacto" require>
     </div>
     <div class="campo">
         <label for="empresa">Empresa:<span>*</span></label>
-        <input type="text" name="empresa" id="empresa" placeholder="Empresa" value= "<?php echo ($contacto['empresa']) ? $contacto['empresa'] : ''; ?> " require>
+        <input type="text" name="empresa" id="empresa" value="<?php echo (isset($contacto['empresa'])) ? $contacto['empresa'] : ''; ?>" placeholder="Empresa" require>
     </div>
     <div class="campo">
         <label for="telefono">Teléfono:<span>*</span></label>
-        <input type="tel" name="telefono" id="telefono" placeholder="Ingresa el número" value="<?php echo ($contacto['telefono']) ? $contacto['telefono'] : ''; ?>" require>
+        <input type="tel" name="telefono" id="telefono" value="<?php echo (isset($contacto['telefono'])) ? $contacto['telefono'] : ''; ?>" placeholder="Ingresa el número" require>
     </div>
 </div>
 <div class="campo enviar">
-    <input type="hidden" id="accion" value="crear" name="crear">
-    <input type="submit" value="Añadir">
+    <?php
+        $accion = (isset($contacto)) ? 'editar' : 'crear';
+    ?>
+
+    <input type="hidden" id="accion" value="<?php echo $accion; ?>">
+    <?php if(isset($contacto['id'])) { ?>
+        <input type="hidden" id="id" value="<?php echo $contacto['id']; ?>">
+    <?php } ?>
+    <input type="submit" value=" <?php echo (isset($contacto)) ? "Actualizar" : "Añadir"; ?> ">
 </div>
 <div class="error" id="error"></div>

@@ -14,9 +14,9 @@ $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 ?>
 <!-- </pre> -->
 
-<pre>
-    <?php var_dump($contacto); ?>
-</pre>
+<!-- <pre> -->
+    <?php /* var_dump($contacto); */ ?>
+<!-- </pre> -->
 
 <!-- Barra -->
 <div class="barra bEditar">

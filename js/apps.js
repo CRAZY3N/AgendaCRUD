@@ -10,7 +10,9 @@ function addEventListener(){
     formularioContactos.addEventListener('submit', leerFormulario);   
 
     //Listado para eliminar el botón
-    listadoContactos.addEventListener('click', eliminarContacto);
+    if(listadoContactos){ /* Para evitar que genere un error en otras paginas que no sea index */
+        listadoContactos.addEventListener('click', eliminarContacto);
+    }
 }
 
 function leerFormulario(e){
@@ -33,11 +35,13 @@ function leerFormulario(e){
         
         /* console.log(...infoContacto); */ /* Crea copia de la variable para poder ver su contenido */
 
-        if(accion == 'crear'){
+        if(accion === 'crear'){
             /* Crear nuevo contacto */
             insertarBD(infoContacto);
         } else {
             /* Modificar contacto */
+            const idRegistro = document.querySelector('#id').value;
+            infoContacto.append('id',idRegistro);
             modificarBD(infoContacto);
         }
     }
@@ -125,7 +129,31 @@ function insertarBD(info){
 
 /* Función de Modificar en Base de Datos */
 function modificarBD(info){
-    console.log("Modificar", ...info);
+    /* console.log("Modificar", ...info); */
+    /* Pasar los datos, Crear el objeto */
+    const xhr = new XMLHttpRequest();
+    /* abrir la conexión  */
+    xhr.open('POST','inc/modelos/modelo-actualizar.php' , true);
+    /* Leer la respuesta */
+    xhr.onload = function(){
+        if(this.status === 200){
+            const respuesta = JSON.parse(xhr.responseText);
+            if(respuesta.respuesta === 'correcto'){
+                /* Mostrar notificación */
+                mostrarNotificacion('Actualizado correctamente','nCorrecto');
+            } else {
+                /* Mostrar notificación */
+                mostrarNotificacion('Hubo un error','nError');
+            }
+            /* Después de 3 seg redireccionar a index */
+            setTimeout(() => {
+                window.location.href = 'index.php';
+            }, 3000);
+        }
+    }
+    /* Enviar la petición */
+    xhr.send(info);
+
 }
 
 /* Función para eliminar contacto */
