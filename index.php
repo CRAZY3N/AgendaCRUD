@@ -30,7 +30,7 @@
     <h2 class="tc">Contactos</h2>
     <input type="text" name="buscar" class="buscar sombra" id="buscar" placeholder="Buscar contactos...">
 
-    <p class="tc"><span>1</span> Contactos</p>
+    <p class="tc"><span id="conContactos"></span> Contactos</p>
 
     <div class="tabla">
         <table id="listadoContactos">

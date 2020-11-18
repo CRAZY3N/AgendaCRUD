@@ -1,10 +1,15 @@
 'use strict'
 
+      /* Index  formulario*/
 const formularioContactos = document.querySelector("#contacto"),
-      listadoContactos = document.querySelector('#listadoContactos tbody');
+       /* index Todos los contactos en la BD */
+      listadoContactos = document.querySelector('#listadoContactos tbody'),
+      /* Buscador de index */
+      inputBuscador = document.querySelector('#buscar');
 
 addEventListener();
 
+            /* Eventos addEventListener */
 function addEventListener(){
     /* Cuando el formulario de crear o editar se ejecuta */
     formularioContactos.addEventListener('submit', leerFormulario);   
@@ -13,6 +18,13 @@ function addEventListener(){
     if(listadoContactos){ /* Para evitar que genere un error en otras paginas que no sea index */
         listadoContactos.addEventListener('click', eliminarContacto);
     }
+    //Buscador de index
+    if(inputBuscador){
+        inputBuscador.addEventListener('input',buscarContacto);
+    }
+
+    /* Mostrar registros tr tbody */
+    numeroContactos();
 }
 
 function leerFormulario(e){
@@ -45,6 +57,38 @@ function leerFormulario(e){
             modificarBD(infoContacto);
         }
     }
+}
+
+/* Función buscar Contacto */
+function buscarContacto(e){
+    /* Comprobar que esta leyendo el valor */
+    /* console.log(e.target.value); */
+    const expresion = new RegExp(e.target.value, "i"),  /* ."i" convierte todo a minúsculas para poder buscar con mayúsculas y minúsculas */
+          registros = document.querySelectorAll('tbody tr');
+
+    registros.forEach(registro => {
+        registro.style.display = 'none';
+        /* console.log(registro.childNodes[1], registro.childNodes[3], registro.childNodes[5]); */ /* Obtener todos los campos en la tabla, nombre, empresa, telefono */
+        if(registro.childNodes[1].textContent.replace(/\s/g, " ").search(expresion) != -1){ /*/\s/g carácter de espacio, sustituido por espacio, por compatibilidad  */
+            registro.style.display = 'table-row';
+        }
+        numeroContactos();
+    });
+
+}
+
+/* Número de contactos */
+function numeroContactos(){
+    const totalContactos = document.querySelectorAll('tbody tr'),
+          contenedorNumero = document.querySelector('#conContactos');
+    ;
+    let total = 0;
+    totalContactos.forEach(contacto => {
+        if(contacto.style.display === '' || contacto.style.display === 'table-row'){
+            total++;
+        }
+    });
+    contenedorNumero.textContent = total;
 }
 
 /* Función de Insertar en Base de Datos via Ajax */
@@ -119,6 +163,8 @@ function insertarBD(info){
             document.querySelector("#empresa").value = '';
             document.querySelector("#telefono").value = '';
             
+            /* Actualizar números visibles */
+            numeroContactos();
             /* Notificación de guardado y agregado */
             mostrarNotificacion('Guardado Exitosamente', 'nCorrecto');
         }
@@ -184,6 +230,8 @@ function eliminarContacto(e) { /* e Nos dira a que elemento le dimos click  */
                         /* Eliminar del DOM */
                         /* console.log(e.target.parentElement.parentElement.parentElement); */ /*Saber el elemento a borrar (button, td, tr) */
                         e.target.parentElement.parentElement.parentElement.remove();
+                        /* Actualizar números visibles */
+                        numeroContactos();
                         /* Mostrar notificación */
                         mostrarNotificacion('Eliminado correctamente','nCorrecto');
                     } else {
