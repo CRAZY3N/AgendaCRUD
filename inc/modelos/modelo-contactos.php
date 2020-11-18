@@ -1,7 +1,8 @@
 <?php
-    /* Archivo para crear o insertar nuevo elemento a la tabla */
 
-    if($_POST['accion'] == 'crear' ){
+    /* Función para crear o insertar nuevo elemento a la tabla */
+
+    if($_POST['accion'] === 'crear' ){
         //Se creara un nuevo registro en la base de datos
         require_once('../funciones/con_db.php');
         
@@ -44,8 +45,6 @@
         }     
 
         echo json_encode($respuesta); //Retorno los datos de respuesta
-    }
-
-    
+    }   
 
 ?>

@@ -1,5 +1,22 @@
 <!-- Header -->
-<?php include 'inc/layout/header.php'; ?>
+<?php include 'inc/layout/header.php'; 
+      include 'inc/funciones/mActualizar.php'; ?>
+
+<!-- <pre> -->
+<?php
+$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+    if(!$id){
+        die('No es valido');
+}
+    $resultado = obteContacto($id);
+    $contacto = $resultado -> fetch_assoc();
+/* var_dump($id); */ /* Validar lo que se está recibiendo */
+?>
+<!-- </pre> -->
+
+<pre>
+    <?php var_dump($contacto); ?>
+</pre>
 
 <!-- Barra -->
 <div class="barra bEditar">

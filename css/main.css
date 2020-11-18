@@ -79,6 +79,7 @@ body{
     border: none;
     text-decoration: none;
 }
+.btn:hover{cursor: pointer;}
 
 .btn-editar{color: var(--secundario);}
 

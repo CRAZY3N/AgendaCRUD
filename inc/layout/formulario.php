@@ -1,15 +1,17 @@
+<?php  ?>
+
 <div class="g g-3 gp">
     <div class="campo">
         <label for="nombre">Nombre:<span>*</span></label>
-        <input type="text" name="nombre" id="nombre" placeholder="Nombre Contacto" require>
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre Contacto" value=" <?php echo ($contacto['nombre']) ? $contacto['nombre'] : ''; ?> " require>
     </div>
     <div class="campo">
         <label for="empresa">Empresa:<span>*</span></label>
-        <input type="text" name="empresa" id="empresa" placeholder="Empresa" require>
+        <input type="text" name="empresa" id="empresa" placeholder="Empresa" value= "<?php echo ($contacto['empresa']) ? $contacto['empresa'] : ''; ?> " require>
     </div>
     <div class="campo">
         <label for="telefono">Teléfono:<span>*</span></label>
-        <input type="tel" name="telefono" id="telefono" placeholder="Ingresa el número" require>
+        <input type="tel" name="telefono" id="telefono" placeholder="Ingresa el número" value="<?php echo ($contacto['telefono']) ? $contacto['telefono'] : ''; ?>" require>
     </div>
 </div>
 <div class="campo enviar">

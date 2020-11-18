@@ -8,6 +8,9 @@ addEventListener();
 function addEventListener(){
     /* Cuando el formulario de crear o editar se ejecuta */
     formularioContactos.addEventListener('submit', leerFormulario);   
+
+    //Listado para eliminar el botón
+    listadoContactos.addEventListener('click', eliminarContacto);
 }
 
 function leerFormulario(e){
@@ -114,10 +117,6 @@ function insertarBD(info){
             
             /* Notificación de guardado y agregado */
             mostrarNotificacion('Guardado Exitosamente', 'nCorrecto');
-
-            //Resetear campos
-
-
         }
     }
     //Enviar datos
@@ -129,6 +128,48 @@ function modificarBD(info){
     console.log("Modificar", ...info);
 }
 
+/* Función para eliminar contacto */
+function eliminarContacto(e) { /* e Nos dira a que elemento le dimos click  */
+    /* console.log(e.target.parentElement.classList.contains('btn-borrar')); */ /* Nos dirá a que le dimos click */
+    /* Con e.target.parentElement.classList.contains('btn-borrar'), nos dirá si el elemento que le dimos click tiene la clase btn-borrar */
+    if(e.target.parentElement.classList.contains('btn-borrar')){
+        /* console.log("Comprobanos que solo reaccione al dar click al botón de eliminar"); */
+        //Tomar el ID del elemento
+        const id = e.target.parentElement.getAttribute('data-id');
+        /* console.log(id); */ /* Comprobar que obtenemos el ID */
+        //Confirmar si están seguros de eliminar
+        const confirma = confirm('¿Estás seguro (a) de eliminar el registro?');
+
+        if(confirma){
+            /* console.log("Borrar"); */ //COnfirmar que se recibe la respuesta
+            //Llamado al ajax
+            //Crear el objeto
+            const xhr = new XMLHttpRequest();
+            //Abrir la conexión
+            xhr.open('GET', `inc/modelos/modelo-borrar.php?id=${id}&accion=borrar`, true);
+            //Leer la respuesta
+            xhr.onload = function() {
+                if(this.status === 200) {
+                    const resul = JSON.parse(xhr.responseText);
+                    /* console.log(resul); */ /* Comprobar lo que regresa */
+                    if(resul.respuesta === 'correcto'){
+                        /* Eliminar del DOM */
+                        /* console.log(e.target.parentElement.parentElement.parentElement); */ /*Saber el elemento a borrar (button, td, tr) */
+                        e.target.parentElement.parentElement.parentElement.remove();
+                        /* Mostrar notificación */
+                        mostrarNotificacion('Eliminado correctamente','nCorrecto');
+                    } else {
+                        mostrarNotificacion('Hubo un error', 'nError');
+                    }
+                }
+            };
+            //Enviar la petición
+            xhr.send();
+        }
+
+    }
+
+}
 
 /* Notificación en pantalla */
 function mostrarNotificacion(mensaje, clase){

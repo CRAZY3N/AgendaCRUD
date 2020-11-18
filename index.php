@@ -1,5 +1,7 @@
 <!-- Funciones -->
-<?php include 'inc/funciones/funciones.php'; ?>
+<?php include 'inc/funciones/funciones.php';
+      include 'inc/funciones/mActualizar.php';
+ ?>
 
 <!-- Header -->
 <?php include 'inc/layout/header.php'; ?>
